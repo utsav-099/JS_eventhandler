@@ -1,43 +1,34 @@
-var item1 = document.getElementById("item1");
-item1.addEventListener("mouseover", function (event) {
-    event.target.style.backgroundColor = "antiquewhite";
-    event.target.style.transition = "0.5s";
-    event.target.textContent = "😒";
-});
-item1.addEventListener("mouseout", function (event) {
-    event.target.style.backgroundColor = "white";
-    event.target.textContent = "";
+let [seconds,minutes,hours]=[0,0,0];
+let displaytime=document.getElementById("displaytime");
+let timer=null;
+function stopwatch(){
+    seconds++;
+    if(seconds==60){
+        seconds=0;
+        minutes++;
+        if(minutes==60){
+            minutes=0;
+            hours++;
+        }
+    }
+    displaytime.innerHTML=hours+":"+minutes+":"+seconds;
+}
+var start=document.getElementById("start");
+start.addEventListener("click", function(watchstart){
+    if(timer!==null){
+        clearInterval(timer);
+    }                    
+    timer=setInterval(stopwatch,1000);
+}); 
+
+var stop=document.getElementById("stop");
+stop.addEventListener("click",function(watchstop){
+    clearInterval(timer);
 });
 
-var item2 = document.getElementById("item2");
-item2.addEventListener("mouseover", function (event) {
-    event.target.style.backgroundColor = "rgb(153, 149, 149)";
-    event.target.style.transition = "0.5s";
-    event.target.textContent = "🤨";
-});
-item2.addEventListener("mouseout", function (event) {
-    event.target.style.backgroundColor = "white";
-    event.target.textContent = "";
-});
-
-var item3 = document.getElementById("item3");
-item3.addEventListener("mouseover", function (event) {
-    event.target.style.backgroundColor = "rgb(62, 60, 60)";
-    event.target.style.transition = "0.5s";
-    event.target.textContent = "😉";
-});
-item3.addEventListener("mouseout", function (event) {
-    event.target.style.backgroundColor = "white";
-    event.target.textContent = "";
-});
-
-var item4 = document.getElementById("item4");
-item4.addEventListener("mouseover", function (event) {
-    event.target.style.backgroundColor = "black";
-    event.target.style.transition = "0.5s";
-    event.target.textContent = "😁";
-});
-item4.addEventListener("mouseout", function (event) {
-    event.target.style.backgroundColor = "white";
-    event.target.textContent = "";
+var reset=document.getElementById("reset");
+reset.addEventListener("click", function(watchreset){
+    clearInterval(timer);
+    [seconds,minutes,hours]=[0,0,0];
+    displaytime.innerHTML="00:00:00";
 });
